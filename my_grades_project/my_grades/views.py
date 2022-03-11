@@ -8,11 +8,11 @@ class HomePageView(TemplateView):
     
     
 class Cadastro(CreateView):
-    form_class = AlunoForm
+    form_class = UsuarioForm
     template_name = 'cadastro.html'
     
 class DadosUpdate(UpdateView):
-    model = Aluno
+    model = Usuario
     fields = ['matricula', 'last_name', 'first_name']
     template_name = 'atualizarCadastro.html'
     success_url = reverse_lazy('home')
