@@ -17,4 +17,4 @@ class UsuarioForm(UserCreationForm):
             self.fields[fieldname].help_text = None
     class Meta:
         model = Usuario
-        fields = ('username', 'matricula', 'email', 'tipoUsuario', 'first_name')
+        fields = ('username', 'matricula', 'email', 'tipoUsuario', 'first_name',)
