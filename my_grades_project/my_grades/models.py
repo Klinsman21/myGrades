@@ -5,14 +5,13 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.urls import reverse
 
 
+
+
 class Usuario(AbstractUser):
     tipos = (
           (1, 'Aluno'),
           (2, 'Professor'),
     )
-    
-    
-    
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=8, blank=True)
     matricula = models.CharField(unique=True, max_length=7)
@@ -27,7 +26,7 @@ class Usuario(AbstractUser):
         swappable = 'AUTH_USER_MODEL'
     
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('painel')
     
 class Disciplina(models.Model):
     nome = models.CharField(max_length = 25, blank=False, verbose_name="Disciplina")
@@ -59,5 +58,19 @@ class Nota(models.Model):
     
     def __str__(self):
         return self.Usuario.username + " - " + self.disciplina.nome + ": " + str(self.nota)
+    
+
+class Endereco(models.Model):
+    tipos=(
+        (1, 'Rural'),
+        (2, 'Urbano')
+    )
+    aluno = models.ForeignKey(Usuario, related_name='Aluno', on_delete=models.CASCADE, blank=False)
+    rua = models.CharField(max_length=100, blank=False, verbose_name='Rua')
+    bairro = models.CharField(max_length=50, blank=False, verbose_name='Bairro')
+    cep = models.CharField(max_length=50, blank=False, verbose_name='CEP')
+    numero = models.PositiveSmallIntegerField(default=0, verbose_name='Numero da residência')
+    tipoResidencia = models.PositiveSmallIntegerField(choices=tipos, blank=False, verbose_name='Tipo da residência', default=2)
+    geolocateRefCod = models.CharField(max_length= 5, verbose_name='Código da geolocalização', blank=True, default='')
 
     
