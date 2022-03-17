@@ -10,12 +10,18 @@ class Usuario(AbstractUser):
           (1, 'Aluno'),
           (2, 'Professor'),
     )
-    usename = models.CharField(max_length=100, blank=True)
+    
+    
+    
+    username = models.CharField(max_length=100)
     password = models.CharField(max_length=8, blank=True)
-    matricula = models.IntegerField(unique=True, null=True)
+    matricula = models.CharField(unique=True, max_length=7)
     email = models.EmailField(null=True, blank=True)
     tipoUsuario = models.PositiveSmallIntegerField(blank=True, default=1, choices=tipos, verbose_name="Grupo")
     # group = models.ForeignKey(Group, blank=False, default=1, verbose_name="Grupo", on_delete=models.CASCADE)
+    
+    USERNAME_FIELD = 'matricula'
+    REQUIRED_FIELDS = ['username']
     
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
