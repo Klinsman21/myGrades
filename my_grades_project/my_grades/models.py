@@ -71,6 +71,5 @@ class Endereco(models.Model):
     cep = models.CharField(max_length=50, blank=False, verbose_name='CEP')
     numero = models.PositiveSmallIntegerField(default=0, verbose_name='Numero da residência')
     tipoResidencia = models.PositiveSmallIntegerField(choices=tipos, blank=False, verbose_name='Tipo da residência', default=2)
-    geolocateRefCod = models.CharField(max_length= 5, verbose_name='Código da geolocalização', blank=True, default='')
 
     
