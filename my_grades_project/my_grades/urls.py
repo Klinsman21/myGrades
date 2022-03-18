@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.LoginView.as_view(), name='home'),
     path('cadastro', Cadastro.as_view(), name='cadastro'),
     path('painel', ControlPainel.as_view(), name='painel'),
+    path('notas', ListaNotas.as_view(), name='notas'),
     path('editar/<pk>/', DadosUpdate.as_view(), name='editar-campo'),
 
 ]

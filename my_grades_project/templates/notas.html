@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: white;
+    }
+</style>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Disciplina</th>
+        <th scope="col">Nota</th>
+        <th scope="col"></th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+{% endblock %}

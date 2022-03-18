@@ -57,7 +57,7 @@ class Nota(models.Model):
     tipo = models.CharField(max_length=50, choices=tipos, blank=False, verbose_name= 'Tipo de nota')
     
     def __str__(self):
-        return self.Usuario.username + " - " + self.disciplina.nome + ": " + str(self.nota)
+        return self.disciplina.nome
     
 
 class Endereco(models.Model):

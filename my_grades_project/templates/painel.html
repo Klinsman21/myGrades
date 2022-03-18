@@ -7,7 +7,47 @@
 
 <center>
     {% if user.tipoUsuario == 1 %}
-        <h1>Painel de controle do Aluno, bem vindo {{ user.username }}</h1>
+    <h1 style="text-align:center;">Bem vindo, {{ user.username }}</h1>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div style="margin-top: 50px;" class="container">
+        <div class="row">
+            <div class="col-md-4 col-xl-3">
+                <div onclick="location.href='/notas';" style="cursor: pointer;" class="card bg-c-blue order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Minhas notas</h5>
+                        <h2 class="text-right"><i class="fa fa-university f-left"></i><span>0</span></h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div onclick="location.href='#';" style="cursor: pointer;" class="card bg-c-green order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Matriculas</h5>
+                        <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>0</span></h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div onclick="location.href='editar/{{ user.id }}/';" style="cursor: pointer;" class="card bg-c-yellow order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Atualizar perfil</h5>
+                        <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>3</span></h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div onclick="location.href='#';" style="cursor: pointer;" class="card bg-c-pink order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Notificações</h5>
+                        <h2 class="text-right"><i class="fa fa-bell-o f-left"></i><span>0</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
     {% if user.tipoUsuario == 2 %}
         <h1>Painel de controle do Professor, bem vindo {{ user.username }}</h1>
