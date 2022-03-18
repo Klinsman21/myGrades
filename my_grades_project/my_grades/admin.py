@@ -29,4 +29,5 @@ class UsuarioAdmin(UserAdmin):
     
 admin.site.register(Nota)
 admin.site.register(Disciplina)
+admin.site.register(Endereco)
 admin.site.register(Usuario, UsuarioAdmin)
