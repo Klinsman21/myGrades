@@ -6,7 +6,13 @@
 </style>
 
 <center>
-    <h1>Painel de controle do Aluno, bem vindo {{ user.username }}</h1>
+    {% if user.tipoUsuario == 1 %}
+        <h1>Painel de controle do Aluno, bem vindo {{ user.username }}</h1>
+    {% endif %}
+    {% if user.tipoUsuario == 2 %}
+        <h1>Painel de controle do Professor, bem vindo {{ user.username }}</h1>
+    {% endif %}
+    
 </center>
 
 {% endblock %}

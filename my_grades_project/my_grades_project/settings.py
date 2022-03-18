@@ -115,7 +115,7 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'my_grades.Usuario'
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/painel'
 
 
 # Static files (CSS, JavaScript, Images)

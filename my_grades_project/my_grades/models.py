@@ -15,7 +15,7 @@ class Usuario(AbstractUser):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=8, blank=True)
     matricula = models.CharField(unique=True, max_length=7)
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     tipoUsuario = models.PositiveSmallIntegerField(blank=True, default=1, choices=tipos, verbose_name="Grupo")
     # group = models.ForeignKey(Group, blank=False, default=1, verbose_name="Grupo", on_delete=models.CASCADE)
     
