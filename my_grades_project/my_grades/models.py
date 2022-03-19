@@ -36,11 +36,11 @@ class Disciplina(models.Model):
 
 class Nota(models.Model):
     tipos = (
-        ("P", "Prova"),
-        ("T", "Trabalho"),
-        ("A", "Artigo"),
-        ("S", "Seminário"),
-        ("O", "Outro"),
+        ("Prova", "Prova"),
+        ("Trabalho", "Trabalho"),
+        ("Artigo", "Artigo"),
+        ("Seminário", "Seminário"),
+        ("Outro", "Outro"),
     )
     periodos = (
         (1, 1),(2, 2),

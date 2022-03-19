@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DeleteView, DetailView
 from .models import *
 from .forms import *
 from django.urls import reverse_lazy
@@ -6,12 +6,12 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-def sortList(e):
-    return len(e.disciplina.nome)
-
 class ControlPainel(LoginRequiredMixin, TemplateView):
     template_name = 'painel.html'
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['notas'] = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).count()
+        return data
     
 
 class Cadastro(CreateView):
@@ -38,6 +38,6 @@ class ListaNotas(LoginRequiredMixin, ListView):
 
     
     def get_queryset(self):
-        data = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).order_by('-disciplina')
+        data = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).order_by('-disciplina', '-id')
         return data
     
