@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 //const redis = require('./database/redis')
-//const mongodb = require('./database/mongo')
+const mongodb = require('./database/mongo')
 
 
 //app.get('/readSketch/:usrID', redis.ReadSketch);
@@ -32,9 +32,13 @@ app.post('/salvarAviso', (req, res) => {
 
 app.post('/salvarLocalizacao', (req, res) => {
   console.log(req.body.lat, req.body.lng)
+  let obj = {
+    'lat': req.body.lat,
+    'lng': req.body.lng
+  }
+  mongodb.salvarLocalizacao(obj)
   res.end("ok");
 })
-
 
 
 app.listen(process.env.PORT, () => { 
