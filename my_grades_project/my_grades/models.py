@@ -62,14 +62,16 @@ class Nota(models.Model):
 
 class Endereco(models.Model):
     tipos=(
-        (1, 'Rural'),
-        (2, 'Urbano')
+        ('Rural', 'Rural'),
+        ('Urbano', 'Urbano')
     )
     aluno = models.ForeignKey(Usuario, related_name='Aluno', on_delete=models.CASCADE, blank=False)
     rua = models.CharField(max_length=100, blank=False, verbose_name='Rua')
     bairro = models.CharField(max_length=50, blank=False, verbose_name='Bairro')
     cep = models.CharField(max_length=50, blank=False, verbose_name='CEP')
     numero = models.PositiveSmallIntegerField(default=0, verbose_name='Numero da residência')
-    tipoResidencia = models.PositiveSmallIntegerField(choices=tipos, blank=False, verbose_name='Tipo da residência', default=2)
+    tipoResidencia = models.CharField( max_length=7, choices=tipos, blank=False, verbose_name='Tipo da residência', default='Urbano')
 
+    def get_absolute_url(self):
+        return reverse('painel')
     

@@ -19,6 +19,12 @@ async function getLocalizacao(matricula) {
     }
 }
 
+const obterLocalizacao = async(request, response) => {
+    const matricula = request.params.cpf;
+    let latlng = await getLocalizacao(matricula);
+    response.status(200).json(latlng);
+}
+
 async function salvarLocalizacao(obj) {
     try {
         await usuario.connect();
@@ -34,5 +40,5 @@ async function salvarLocalizacao(obj) {
 }
 
 
-module.exports = {getLocalizacao, salvarLocalizacao};
+module.exports = {obterLocalizacao, salvarLocalizacao};
 

@@ -40,9 +40,19 @@ class ListaNotas(LoginRequiredMixin, ListView):
         data = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).order_by('-disciplina', '-id')
         return data
     
-class Endereco(CreateView):
+class EnderecoLista(LoginRequiredMixin, ListView):
+    model = Endereco
+    context_object_name = 'endereco'
+    template_name = 'enderecoList.html'
+ 
+    def get_queryset(self):
+        data = Endereco.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk))
+        return data
+
+class CadastrarEndereco(LoginRequiredMixin, CreateView):
     model = Endereco
     template_name = 'endereco.html'
     fields = ['aluno', 'rua', 'bairro', 'cep', 'numero', 'tipoResidencia']
+    
     
     

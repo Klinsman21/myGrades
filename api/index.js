@@ -27,12 +27,12 @@ app.post('/salvarAviso', (req, res) => {
   res.end("ok");
 })
 
-// app.get('/savePost/:usrID/body/:text/title/:title/date/:date', mongo.SavePost);
-// app.get('/readAllPosts/:usrID', mongo.getAllPosts);
+app.get('/getLatLng/:matricula', mongodb.obterLocalizacao);
 
 app.post('/salvarLocalizacao', (req, res) => {
   console.log(req.body.lat, req.body.lng)
   let obj = {
+    'matricula': req.body.matricula,
     'lat': req.body.lat,
     'lng': req.body.lng
   }
