@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
 
@@ -13,27 +20,34 @@
     <input type="submit">
 </form> -->
 
-<div class="row d-flex justify-content-center align-items-center h-100" style=" margin-top: 3px;">
+{% if form.errors %}
+{% for field in form %}
+{% for error in field.errors %}
+<div class="alert alert-danger">
+    <strong>{{ error|escape }}</strong>
+</div>
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+<div class="row d-flex justify-content-center align-items-center h-100" style=" margin-top: 50px;">
     <div class="col-lg-3 col-xl-9">
         <div class="card text-black" style="border-radius: 25px;">
             <div class="card-body p-md-2">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-sm-6 col-xl-5 order-2 order-sm-1">
 
-                        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-1 mt-1" style="font-size:23pt">Cadastrar Endereço</p>
+                        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-1 mt-1" style="font-size:23pt">Cadastrar
+                            Endereço</p>
 
-                        <form class="mx-5 mx-md-8" method="post">
+                        <form onsubmit="enviarParaMongo()" class="mx-5 mx-md-8" method="post">
                             {% csrf_token %}
+                            <select hidden="true" name="aluno" id="id_aluno">
+                                <option value="" selected="">---------</option>
+                                <option selected="selected" value="1">{{ user.matricula }}</option>
+                            </select>
+                            <input id="matricula" type="text" value="{{ user.matricula }}" hidden>
                             <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                <div class="form-outline flex-fill mb-0">
-                                    <input hidden  value = "{{user.matricula}}" required name="aluno" type="text"
-                                        id="id_aluno" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="id_rua">Rua</label>
                                     <input required name="rua" type="text" id="id_rua" class="form-control" />
@@ -42,7 +56,6 @@
                             </div>
 
                             <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="id_bairro">Bairro</label>
                                     <input required name="bairro" type="text" id="id_bairro" class="form-control" />
@@ -51,42 +64,44 @@
                             </div>
 
                             <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="id_cep">CEP</label>
-                                    <input required name="cep" type="number" id="id_cep"
-                                        class="form-control" />
+                                    <input required name="cep" type="number" id="id_cep" class="form-control" />
 
                                 </div>
                             </div>
 
                             <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="id_numero">N°</label>
-                                    <input type="number" value="0" min="0" required name="numero"  id="id_numero"
+                                    <input type="number" value="0" min="0" required name="numero" id="id_numero"
                                         class="form-control" />
 
                                 </div>
                             </div>
 
                             <div class="d-flex flex-row align-items-center mb-1">
-                                <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="id_tipoResidencia">Tipo de Residência</label>
                                     <select required name="tipoResidencia" type="text" id="id_tipoResidencia"
-                                        class="form-control"> 
-                                        <option value="1">Rural</option>
-                                        <option value="2">Urbano</option>
+                                        class="form-control">
+                                        <option value="Rural">Rural</option>
+                                        <option value="Urbana">Urbana</option>
                                     </select>
 
                                 </div>
                             </div>
 
 
-                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                <button style="background-color: #2E28C3;" type="submit"
-                                    class="btn btn-primary btn-lg">Salvar</button>
+                            <div style="margin-top: 10px;" class="d-flex justify-content-center mx-6 mb-3 mb-lg-4">
+                                <button onclick="window.location.href='/painel'" type="button"
+                                    style="font-size:10pt;"
+                                    class="btn btn-outline-danger"><i class="fa fa-arrow-circle-left"></i>
+                                    Painel</button>
+                                <button style="font-size: 10pt; margin-left: 10px;" type="submit"
+                                    class="btn btn-outline-primary">Salvar</button>
+                                <button onclick="getLocation()" type="button" style="font-size:10pt; margin-left: 10px;"
+                                    class="btn btn-outline-success">Localização <i class="fa fa-map-marker"></i></button>
                             </div>
 
                         </form>
@@ -94,7 +109,7 @@
                     </div>
                     <div class="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
 
-                        <img src="{% static 'imagens/student address.svg'%}" class="img-fluid" alt="Sample image">
+                        <div id="map" style="width: 900px; height: 500px"></div>
 
                     </div>
                 </div>
@@ -103,6 +118,5 @@
     </div>
 </div>
 
-
+<script src="{%  static 'scripts/endereco.js' %}"></script>
 {% endblock %}
-

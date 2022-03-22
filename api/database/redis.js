@@ -7,14 +7,8 @@ client.on('connect', (err) =>{
 })
 
 // redis
-const salvarAviso = (disciplina, aviso) => {
-    redis.set(disciplina, aviso, 'EX', 7200)
-    return true
-};
-
-const lerAviso = (request, response) => {
-    const disciplina = request.params.disciplina;
-    client.get(matricula, (err, res) => {
+const lerAvisos = (request, response) => {
+    client.get("my_grades", (err, res) => {
         if(res != null){
             response.status(200).send(res)
         }
@@ -24,7 +18,12 @@ const lerAviso = (request, response) => {
     })
 }
 
+const salvarAvisos = (aviso) => {
+    let avisos = 
+    client.set("my_grades", aviso, 'EX', 7200)
+    return true
+};
 
-module.exports = {salvarAviso, lerAviso};
+module.exports = {salvarAvisos, lerAvisos};
 
 

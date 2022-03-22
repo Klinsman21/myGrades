@@ -23,8 +23,11 @@
 </style>
 
 <div class="container">
+  {% if nota %}
+  <h2 style="text-align:center; margin-bottom:50px; margin-top: 20px;">{{ user.username }}, essas foram as notas
+    encontradas</h2>
   <table class="table">
-    <thead >
+    <thead>
       <tr style="text-align:center;">
         <th scope="col">Disciplina</th>
         <th scope="col">Nota</th>
@@ -35,17 +38,25 @@
     <tbody>
       {% for x in nota %}
       <tr>
-          <th scope="row">{{ x.disciplina }}</th>
-          <td style="text-align:center;">{{ x.nota }}</td>
-          <td style="text-align:center;">{{ x.tipo }}</td>
-          <td style="text-align:center;">{{ x.periodo }}º</td>
+        <th scope="row">{{ x.disciplina }}</th>
+        <td style="text-align:center;">{{ x.nota }}</td>
+        <td style="text-align:center;">{{ x.tipo }}</td>
+        <td style="text-align:center;">{{ x.periodo }}º</td>
       </tr>
-  
       {% endfor %}
-  
-  
     </tbody>
   </table>
+  <button onclick="window.location.href='/painel'" style="margin-left:41%; margin-top:30px;"
+    class="btn btn-primary btn-lg">Retornar ao painel</button>
+  {% else %}
+  <!-- <img src="{%  static 'imagens/cancel.svg' %}"> -->
+  <h3 style="text-align:center; margin-top: 25%;">Não há notas para o período informado :(</h3>
+  <button onclick="window.location.href='/painel'" style="margin-left:41%; margin-top:30px;"
+    class="btn btn-primary btn-lg">Retornar ao painel</button>
+  {% endif %}
+
+
+
 </div>
 
 

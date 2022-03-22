@@ -1,3 +1,4 @@
+from ast import For
 from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DeleteView, DetailView
 from .models import *
 from .forms import *
@@ -37,7 +38,8 @@ class ListaNotas(LoginRequiredMixin, ListView):
     template_name = 'notas.html'
  
     def get_queryset(self):
-        data = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).order_by('-disciplina', '-id')
+        periodo = self.kwargs['pr']
+        data = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).filter(periodo=periodo).order_by('-disciplina', '-id')
         return data
     
 class EnderecoLista(LoginRequiredMixin, ListView):
@@ -54,5 +56,10 @@ class CadastrarEndereco(LoginRequiredMixin, CreateView):
     template_name = 'endereco.html'
     fields = ['aluno', 'rua', 'bairro', 'cep', 'numero', 'tipoResidencia']
     
+    
+class DeleteEndereco(LoginRequiredMixin, DeleteView):
+    model = Endereco
+    template_name = 'deleteEndereco.html'
+    success_url ="/enderecoLista"
     
     

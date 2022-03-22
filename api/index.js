@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-//const redis = require('./database/redis')
+const redis = require('./database/redis')
 const mongodb = require('./database/mongo')
 
 
@@ -37,6 +37,12 @@ app.post('/salvarLocalizacao', (req, res) => {
     'lng': req.body.lng
   }
   mongodb.salvarLocalizacao(obj)
+  res.end("ok");
+})
+
+app.get('/deleteLocalizacao/:matricula', (req, res) => {
+  console.log(req.params.matricula)
+  mongodb.deleteLocalizacao(req.params.matricula)
   res.end("ok");
 })
 
