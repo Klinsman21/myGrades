@@ -6,12 +6,15 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+import requests
 
 class ControlPainel(LoginRequiredMixin, TemplateView):
     template_name = 'painel.html'
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['notas'] = Nota.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk)).count()
+        data['avisos'] = Aviso.objects.all().count()
+        r = requests.get(url='http://localhost:3000/lerAvisos')
+        print(r.json())
         return data
     
 
@@ -61,5 +64,15 @@ class DeleteEndereco(LoginRequiredMixin, DeleteView):
     model = Endereco
     template_name = 'deleteEndereco.html'
     success_url ="/enderecoLista"
+    
+
+class AvisoLista(LoginRequiredMixin, ListView):
+    model = Endereco
+    context_object_name = 'aviso'
+    template_name = 'avisosLista.html'
+ 
+    def get_queryset(self):
+        data = Endereco.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk))
+        return data
     
     

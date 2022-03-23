@@ -20,10 +20,16 @@ const redis = require('./database/redis')
 const mongodb = require('./database/mongo')
 
 
-//app.get('/readSketch/:usrID', redis.ReadSketch);
+app.get('/lerAvisos', redis.lerAvisos);
 
 app.post('/salvarAviso', (req, res) => {
-  redis.salvarAviso(req.body.disciplina, req.body.aviso)
+  redis.salvarAvisos(req.body.aviso)
+  res.end("ok");
+})
+
+app.post('/removerAviso', (req, res) => {
+  console.log(req.body.aviso)
+  redis.removerAvisos(req.body.aviso)
   res.end("ok");
 })
 
