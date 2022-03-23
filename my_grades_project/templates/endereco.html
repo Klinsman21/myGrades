@@ -42,6 +42,7 @@
 
                         <form onsubmit="enviarParaMongo()" class="mx-5 mx-md-8" method="post">
                             {% csrf_token %}
+                            <input type="text" value="list0" id="pageType" hidden>
                             <select hidden="true" name="aluno" id="id_aluno">
                                 <option value="" selected="">---------</option>
                                 <option selected="selected" value="1">{{ user.matricula }}</option>
