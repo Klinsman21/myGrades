@@ -64,12 +64,29 @@
             </div>
             
             <div class="col-md-4 col-xl-3">
-                <div onclick="location.href='/avisoLista';" style="cursor: pointer;" class="card bg-c-pink order-card">
+                <h3>Notificações</h3>
+                <!-- <div onclick="location.href='/avisoLista';" style="cursor: pointer;" class="card bg-c-pink order-card">
                     <div class="card-block">
                         <h5 class="m-b-20">Avisos</h5>
-                        <h2 class="text-right"><i class="fa fa-bell-o f-left"></i><span>{{ avisos }}</span></h2>
+                        <h2 class="text-right"><i class="fa fa-bell-o f-left"></i><span>{{ avisoCount }}</span></h2>
                     </div>
-                </div>
+                </div> -->
+                <div class="m-4">
+                    <div class="toast-container">
+                      {% for x in avisos %}
+                        <div class="toast fade show">
+                            <div class="toast-header">
+                                <strong class="me-auto"><i class="bi-globe"></i> My Grades</strong>
+                                <small>5 seconds ago</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{ x }}.
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

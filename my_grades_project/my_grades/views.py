@@ -12,9 +12,9 @@ class ControlPainel(LoginRequiredMixin, TemplateView):
     template_name = 'painel.html'
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['avisos'] = Aviso.objects.all().count()
-        r = requests.get(url='http://localhost:3000/lerAvisos')
-        print(r.json())
+        data['avisoCount'] = Aviso.objects.all().count()
+        r = requests.get(url='http://localhost:3000/lerAvisos').text
+        data['avisos'] = r.split(',')
         return data
     
 
@@ -65,14 +65,5 @@ class DeleteEndereco(LoginRequiredMixin, DeleteView):
     template_name = 'deleteEndereco.html'
     success_url ="/enderecoLista"
     
-
-class AvisoLista(LoginRequiredMixin, ListView):
-    model = Endereco
-    context_object_name = 'aviso'
-    template_name = 'avisosLista.html'
- 
-    def get_queryset(self):
-        data = Endereco.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk))
-        return data
     
     
