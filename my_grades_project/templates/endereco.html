@@ -3,6 +3,7 @@
 
 {% block head %}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 
@@ -29,11 +30,7 @@
 {% endfor %}
 {% endif %}
 
-<style>
-    html, body {margin: 0; height: 100%; overflow: hidden}
-</style>
-
-<div class="row d-flex justify-content-center align-items-center h-100" style=" margin-top: 30px;">
+<div class="row d-flex justify-content-center align-items-center h-100" style=" margin-top: 50px;">
     <div class="col-lg-3 col-xl-9">
         <div class="card text-black" style="border-radius: 25px;">
             <div class="card-body p-md-2">
@@ -43,7 +40,7 @@
                         <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-1 mt-1" style="font-size:23pt">Cadastrar
                             Endereço</p>
 
-                        <form class="mx-5 mx-md-8" method="post">
+                        <form onsubmit="enviarParaMongo()" class="mx-5 mx-md-8" method="post">
                             {% csrf_token %}
                             <input type="text" value="list0" id="pageType" hidden>
                             <select hidden="true" name="aluno" id="id_aluno">
@@ -104,6 +101,8 @@
                                     Painel</button>
                                 <button style="font-size: 10pt; margin-left: 10px;" type="submit"
                                     class="btn btn-outline-primary">Salvar</button>
+                                <button onclick="getLocation()" type="button" style="font-size:10pt; margin-left: 10px;"
+                                    class="btn btn-outline-success">Localização <i class="fa fa-map-marker"></i></button>
                             </div>
 
                         </form>
@@ -111,7 +110,7 @@
                     </div>
                     <div class="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
 
-                        <img src="{% static 'imagens/my_location.svg'%}" class="img-fluid" alt="Sample image">
+                        <div id="map" style="width: 900px; height: 500px"></div>
 
                     </div>
                 </div>

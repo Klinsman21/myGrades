@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.urls import reverse
 from django.db.models import signals
 from django.dispatch import receiver
+import requests
 
 
 class Usuario(AbstractUser):
@@ -81,3 +82,20 @@ class Aviso(models.Model):
     titulo = models.CharField(max_length=100, blank=False, verbose_name='Título')
     aviso = models.TextField(verbose_name='Aviso', blank=False, default=None)
     tipoAviso = models.CharField( max_length=50, choices=tipos, blank=False, verbose_name='Tipo do aviso', default='Urbana')
+
+@receiver(signals.pre_save, sender=Aviso)
+def create_aviso(sender, instance, **kwargs):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    url = 'http://localhost:3000/salvarAviso'
+    dataAviso = 'aviso='
+    dataAviso += instance.aviso
+    requests.post(url, data=dataAviso, headers=headers)
+    
+@receiver(signals.pre_delete, sender=Aviso)
+def delete_aviso(sender, instance, **kwargs):
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    url = 'http://localhost:3000/removerAviso'
+    dataAviso = 'aviso='
+    dataAviso += instance.aviso
+    requests.post(url, data=dataAviso, headers=headers)
+    print(dataAviso)

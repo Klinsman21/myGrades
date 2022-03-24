@@ -30,6 +30,7 @@
                     <div class="card-block">
                         <h5 class="m-b-20">Minhas notas</h5>
                         <i class="fa fa-university f-left"></i>
+                        <!-- <h2 style="display:inline-block;" class="text-right">{{ notas }}  </h2> -->
                         <select id="selectPeriodo" style="display:inline-block; width:95px; height: 45px; font-size:10pt;" class="form-select form-select-sm" aria-label=".form-select-sm example">
                             <option selected>Período</option>
                             <option value="1">1</option>
@@ -48,7 +49,7 @@
                 <div onclick="location.href='/enderecoLista';" style="cursor: pointer;" class="card bg-c-green order-card">
                     <div class="card-block">
                         <h5 class="m-b-20">Meu endereço</h5>
-                        <h2 class="text-right"><i class="fa fa-map-marker f-left"></i><span>{{ enderecoCount }}</span></h2>
+                        <h2 class="text-right"><i class="fa fa-map-marker f-left"></i><span>0</span></h2>
                     </div>
                 </div>
             </div>
@@ -64,6 +65,12 @@
             
             <div class="col-md-4 col-xl-3">
                 <h3>Notificações</h3>
+                <!-- <div onclick="location.href='/avisoLista';" style="cursor: pointer;" class="card bg-c-pink order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Avisos</h5>
+                        <h2 class="text-right"><i class="fa fa-bell-o f-left"></i><span>{{ avisoCount }}</span></h2>
+                    </div>
+                </div> -->
                 <div class="m-4">
                     <div class="toast-container">
                       {% for x in avisos %}
@@ -74,7 +81,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
                             </div>
                             <div class="toast-body">
-                                {{ x.aviso }}.
+                                {{ x }}.
                             </div>
                         </div>
                         {% endfor %}
