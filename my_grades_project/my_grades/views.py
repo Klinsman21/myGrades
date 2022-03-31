@@ -53,6 +53,12 @@ class EnderecoLista(LoginRequiredMixin, ListView):
     def get_queryset(self):
         data = Endereco.objects.filter(aluno=Usuario.objects.get(id=self.request.user.pk))
         return data
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        r = requests.get(url='http://localhost:3000/lerAvisos').text
+        data['latlgn'] = r
+        return data
 
 class CadastrarEndereco(LoginRequiredMixin, CreateView):
     model = Endereco
